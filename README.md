@@ -34,66 +34,22 @@ To run ACDC, type <code>python acdc.py</code>. The following menu should appear
 
 Now enter the number for the action you want to perform.
 
-<code>variables.py</code> contains constants used in various modules which can be edited to change how the package operates. 
+<code>variables.py</code> contains constants used in various modules. Some of them are highlighted here because changing their values according to the use's needs can help get better results.  
 
-Constants affecting spectrograms and augmentation: NPERSEG, NOVERLAP, WINDOW, SPECTROGRAM_RAW_LOW, SPECTROGRAM_RAW_HIGH, SPECTROGRAM_POWER_FACTOR, LOWCUT, HIGHCUT, SPECTROGRAM_HEIGHT = int(64)
-SQUARIFY_SIZE = 64
-MORPH_CLEAN_KERNEL = np.ones((3,3))
-NOISE_NEG_SAMPLES_RATIO = 0.4
-ROTATIONS = (-2, 2)
-SHEARS_HORIZ = (-2, 2)
-SHEARS_VERT = (-3, 3)
-TILTS_HORIZ = (-8, 8)
-TILTS_VERT = (-8, 8)
-STRETCHES_VERT = (-16, 6)
-ADJUST_BRIGHTNESS = (0.5, 2)
-MAX_SAMPLES = 150
-MINIMUM_VALUE = 0.01
-MINIMUM_AVG_VALUE = 0.001
-MAXIMUM_AVG_VALUE = 0.9
-STEP_LENGTH_RATIO = 0.5
+<code>CONFIDENCE_THRESHOLD</code>
+This is the value that needs to be exceeded in the the final layer of the model to trigger detection of a call. Lowering this value makes the model more likely to detect something but can lead to more false postives. Raising this value makes the model less likely to detect something but reduces false postitives.
 
+<code>TRAINING_EPOCHS</code>
+This determines the number of iterations that the model trains. We have good experience using at least 10 epochs. 
 
-Names of directories
-TRAINING_DIR = 'training_data'
-RECORDINGS_DIR = 'recordings'
-RESULTS_DIR = 'results'
-MODELS_DIR = 'models'
+<code>WINDOW_LENGTHS = {'Chi': 0.25,'Tr': 0.25,'Ph': 0.40,'Tw': 0.5}</code>
+Window lengths in seconds are set for each vocalization type. The names of the calls ‘Chi’, ‘Tr’ ‘Ph’ and ‘Tw’ have to correspond to folder names in the ‘training_data’ folder. If different or additional classes need to be trained, this variable needs to change accordingly
 
-Constants affecting the model
-CONFIDENCE_THRESHOLD = 0.95
-(this is the value the final layer in the model needs to exceed to trigger detection of a call)
+<code>TRAINING_SEGMENTS_PER_CALL</code>
+This is a target number of segments which determines whether the data needs to be augmented. It makes sense to set this value equal to the class with the most segments so that other classes are augmented and get the same number, removing class imbalance. 
 
-TRAINING_BATCH_SIZE = 16
-TRAINING_EPOCHS = 2
-(these determine the number of iterations the model needs to train)
-
-DETECTION_LENGTH_RATIO = 0.5
-WINDOW_LENGTHS = {'Chi': 0.25,'Tr': 0.25,'Ph': 0.40,'Tw': 0.5}
-(Window lengths in seconds are set for each vocalization type because different vocalizations have different durations. The names of the calls ‘Chi’, ‘Tr’ ‘Ph’ and ‘Tw’ correspond to folder names in the ‘training_data’ folder. If different or additional classes need to be trained, the names in this variable need to added or changes accordingly)
-
-SEGMENT_LENGTH = 0.45
-SEGMENT_STEP = 0.04
-VALIDATION_RATIO = 0.2
-TEST_RATIO = 0.1
-TRAINING_SEGMENTS_PER_CALL = 100
-(this is a target number of segments which determines how many synthetic segments need to be created by the augmentation procedure. It makes sense to make this value equal to the class with the highest number of segments, so that other classes are augmented and get the same number)
-
-TESTING_SEGMENTS_PER_CALL = int(round(TRAINING_SEGMENTS_PER_CALL * TEST_RATIO))
-VALIDATION_SEGMENTS_PER_CALL = int(round(TRAINING_SEGMENTS_PER_CALL * VALIDATION_RATIO))
-
-Various filenames
-TDATA_FILENAME = 'acdc.tdata'
-NOISE_STRING = 'Noise'
-MODEL_FILENAME = 'acdc.model'
-MODEL_FILENAME = 'saved_model.pb'
-MODEL_ATTR_FILENAME = 'acdc.modelattr'
-MODEL_CMATRIX_FILENAME = 'acdc_model.png'
-
-MIN_DETECTION_LENGTH_RATIO = 0.2
-SMOOTHING_KERNEL_SIZE = 5
-VOLUME_AMP_MULTIPLE = 60
-(This variable determines by how much the data should be amplified so that enough samples cross the threshold of inclusion in the analysis and not too many background noise samples are erroneously included)
+<code>VOLUME_AMP_MULTIPLE</code>
+This variable determines by how much the data should be amplified. There is a threshold being applied so segments that do not cross the threshold are discarded. Change this value to get the optimal balance between false positives and false negatives. 
 
 
 
