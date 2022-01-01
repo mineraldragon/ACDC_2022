@@ -48,8 +48,7 @@ Now enter the number for the action you want to perform.
 1. Once a model has been trained, recordings (.wav format, mono, 48kHz, 16 bits/sample) can be processed. Put wave files in the <code>recordings</code> folder. 
 2. To process recordings, enter the corresponding number from in the menu. Results are stored in a new sub-directory in <code>results</code>. Sub-directories are named according to the date and time of the run, like this: [YYYYMMDD]_[HHMMSS]_[recording filename]. Results are lists of call labels in .csv format and .txt format (tab-delimited Audacity readable) with a row for each call and 1st column start time (seconds), 2nd column end time (seconds) and 3rd column call type (‘Tr’, ‘Tw’, ‘Ph’ or ‘Chi’). The csv and txt files contain the same information. 
 3. An easy way to view the results is by loading the wave file into Audacity <url>https://www.audacityteam.org/</url> in Spectrogram view, and then do 'File', 'Import', 'Labels...' and select the .txt file with labels.
-4. The user may want to try out different values for <code>CONFIDENCE_THRESHOLD</code> and <code>VOLUME_AMP_MULTIPLE</code> (both in <code>variables.py</code> to get a better result. If that does not work, re-training with more samples or a training different model may be required. To implement a new model, edit <code>model.py</code>.
-
+4. The user may want to try out different values for <code>CONFIDENCE_THRESHOLD</code> and <code>VOLUME_AMP_MULTIPLE</code> (both in <code>variables.py</code> to get a better result. If that does not work, re-training with more samples may be necessary. Finally, to use a model architecture of your own, edit <code>model.py</code>.
 
 
 
