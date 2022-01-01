@@ -54,6 +54,19 @@ This is a target number of segments which determines whether the data needs to b
 <code>VOLUME_AMP_MULTIPLE</code>
 This variable determines by how much the data should be amplified. There is a threshold being applied so segments that do not cross the threshold are discarded. Change this value to get the optimal balance between false positives and false negatives. 
 
+##Folders
+
+<code>models</code>
+This is where trained models and pre-processed training data are stored
+<code>recordings</code>
+This is where recordings for analysis (.wav files, mono, 48kHz, 16 bits/sample) are stored. 
+<code>results</code>
+Results of processing a file are stored in this folder. A new sub-directory is created each time a file is processed. Sub-directories are named according to the date and time of the run, like this: [YYYYMMDD]_[HHMMSS]_[recording filename]. Results are lists of call labels in .csv format and .txt format (tab-delimited Audacity readable) with a row for each call and 1st column start time (seconds), 2nd column end time (seconds) and 3rd column call type (‘Tr’, ‘Tw’, ‘Ph’ or ‘Chi’). The csv and txt files contain the same information
+<code>training_data</code>
+Training data for training a new model goes here. There should be a folder for each call type ‘Tr’, ‘Tw’, ‘Ph’, ‘Chi’ and ‘Noise’. Each training sample should be a .wav file stored in the folder corresponding to the call type. The ‘Noise’ folder should contain a representative sampling of noises that are not vocalizations but so occur in the environment where the recordings are done, such as doors opening and closing, cage sounds, et cetera. Very low amplitude background noise does not need to be represented because thresholding already makes sure that gets discarded.   
+
+
+
 
 
 Collaborators
