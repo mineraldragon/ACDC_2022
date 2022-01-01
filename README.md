@@ -26,7 +26,10 @@ The full recording is split up into overlapping segments, each a certain length 
 3. Create a new environment with Python 3.7 in Anaconda Navigator
 4. Click the environment, click Open Terminal (a command line terminal will open)
 5. In the terminal, navigate to the directory that has the ACDC files (where <code>acdc.py</code> is)
-6. Type <code>pip install -r requirements.txt</code> and hit enter. Pip should now be installing all the required packages at one time. 
+6. Type <code>pip install -r requirements.txt</code> and hit enter. Pip should now be installing all the required packages. 
+
+To run ACDC, type <code>python acdc.py</code>. The following menu should appear
+
 
 
 
