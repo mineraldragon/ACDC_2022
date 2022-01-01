@@ -10,12 +10,11 @@ To process recordings, the user places recordings in the <code>recordings</code>
 Operation is mainly through a command line interface with numbered options which allows the user to enter a number for the action to perform. 
 
 ## Most recent changes
-- Removal of lesser used features that produced errors
-- Fixed Joblib issue
-- Use newer version of Keras
+- Removal of lesser-used features
+- Fixed issues with newer versions of several packages incl Keras/Tensorflow
 - Save to Audacity labels format
 - Model save and load debugged
-- Installation usign Reguirements.txt
+- Installation using Requirements.txt
 
 ## Approach for detection
 The full recording is split up into overlapping segments, each a certain length (e.g. 0.5s). Each segment is fed to the multi-class classifier which determines which type of call that segment contains. Since there is a high degree of overlap between the segments, each section of the spectrogram is essentially covered many times. These results are put in a time series, and the "Scanner" class then goes through the raw results, smoothing them, and then finally discarding continuous segments that are less than a certain proportion of the average call length (e.g. if the average phee call is 1s, and a continuous set of segments were labeled phee, but that contiguous set only lasted 0.3s total, it would be discarded). These steps effectively create a "voting" scheme. If there is a false positive in one segment and one segment only, these steps will likely smooth over them or weed them out. Conversely, if there is a false negative in a sea of true positives, it will not disrupt the chain.
