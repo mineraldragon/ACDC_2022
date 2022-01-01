@@ -20,7 +20,7 @@ Operation is mainly through a command line interface with numbered options which
 ## Approach for detection
 The full recording is split up into overlapping segments, each a certain length (e.g. 0.5s). Each segment is fed to the multi-class classifier which determines which type of call that segment contains. Since there is a high degree of overlap between the segments, each section of the spectrogram is essentially covered many times. These results are put in a time series, and the "Scanner" class then goes through the raw results, smoothing them, and then finally discarding continuous segments that are less than a certain proportion of the average call length (e.g. if the average phee call is 1s, and a continuous set of segments were labeled phee, but that contiguous set only lasted 0.3s total, it would be discarded). These steps effectively create a "voting" scheme. If there is a false positive in one segment and one segment only, these steps will likely smooth over them or weed them out. Conversely, if there is a false negative in a sea of true positives, it will not disrupt the chain.
 
-# Installation
+## Installation
 1. Download the repo and unzip the files in the directory where you want them
 2. Install Anaconda <url>https://www.anaconda.com/</url>
 3. Create a new environment with Python 3.7 in Anaconda Navigator
@@ -31,6 +31,21 @@ The full recording is split up into overlapping segments, each a certain length 
 To run ACDC, type <code>python acdc.py</code>. The following menu should appear
 
 <img src="https://github.com/mineraldragon/ACDC_2022/blob/main/img/Menu_screenshot.png" width=50% height=50%>
+
+Now enter the number for the action you want to perform.
+
+
+## Repo contents
+<code>acdc.py</code>
+This is the main file which calls all other modules.
+
+<code>exporter.py</code>
+Creates the folder for the results.
+
+
+
+
+
 
 
 Collaborators
