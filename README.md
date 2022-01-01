@@ -36,11 +36,88 @@ Now enter the number for the action you want to perform.
 
 
 ## Repo contents
-<code>acdc.py</code>
-This is the main file which calls all other modules.
+<code>acdc.py</code>This is the main file which calls all other modules.
+<code>exporter.py</code>Creates the folder for the results.
+<code>filters.py</code>Pre-processing such as creating spectrograms and data augmentation.
+<code>model.py</code>Creates, trains, evaluates and saves the model
+<code>process.py</code>Manages processing of wave files for detection
+<code>recording.py</code>Manages loading of long wave files
+<code>results.py</code>Saves the results
+<code>scanner.py</code>Steps through a recording and labels the calls
+<code>training_data.py</code>Prepares data for training the model
+<code>variables.py</code>Constants used in various modules. Edit this to change how the package functions. 
 
-<code>exporter.py</code>
-Creates the folder for the results.
+Constants affecting spectrograms and augmentation
+NPERSEG = 256
+NOVERLAP = int(NPERSEG * 0.25)
+WINDOW = 'hanning'
+SPECTROGRAM_RAW_LOW = 1
+SPECTROGRAM_RAW_HIGH = 4
+SPECTROGRAM_POWER_FACTOR = 4
+LOWCUT = 4500
+HIGHCUT = 9500
+SPECTROGRAM_HEIGHT = int(64)
+SQUARIFY_SIZE = 64
+MORPH_CLEAN_KERNEL = np.ones((3,3))
+NOISE_NEG_SAMPLES_RATIO = 0.4
+ROTATIONS = (-2, 2)
+SHEARS_HORIZ = (-2, 2)
+SHEARS_VERT = (-3, 3)
+TILTS_HORIZ = (-8, 8)
+TILTS_VERT = (-8, 8)
+STRETCHES_VERT = (-16, 6)
+ADJUST_BRIGHTNESS = (0.5, 2)
+MAX_SAMPLES = 150
+MINIMUM_VALUE = 0.01
+MINIMUM_AVG_VALUE = 0.001
+MAXIMUM_AVG_VALUE = 0.9
+STEP_LENGTH_RATIO = 0.5
+
+
+Names of directories
+TRAINING_DIR = 'training_data'
+RECORDINGS_DIR = 'recordings'
+RESULTS_DIR = 'results'
+MODELS_DIR = 'models'
+
+Constants affecting the model
+CONFIDENCE_THRESHOLD = 0.95
+(this is the value the final layer in the model needs to exceed to trigger detection of a call)
+
+TRAINING_BATCH_SIZE = 16
+TRAINING_EPOCHS = 2
+(these determine the number of iterations the model needs to train)
+
+DETECTION_LENGTH_RATIO = 0.5
+WINDOW_LENGTHS = {'Chi': 0.25,'Tr': 0.25,'Ph': 0.40,'Tw': 0.5}
+(Window lengths in seconds are set for each vocalization type because different vocalizations have different durations. The names of the calls ‘Chi’, ‘Tr’ ‘Ph’ and ‘Tw’ correspond to folder names in the ‘training_data’ folder. If different or additional classes need to be trained, the names in this variable need to added or changes accordingly)
+
+SEGMENT_LENGTH = 0.45
+SEGMENT_STEP = 0.04
+VALIDATION_RATIO = 0.2
+TEST_RATIO = 0.1
+TRAINING_SEGMENTS_PER_CALL = 100
+(this is a target number of segments which determines how many synthetic segments need to be created by the augmentation procedure. It makes sense to make this value equal to the class with the highest number of segments, so that other classes are augmented and get the same number)
+
+TESTING_SEGMENTS_PER_CALL = int(round(TRAINING_SEGMENTS_PER_CALL * TEST_RATIO))
+VALIDATION_SEGMENTS_PER_CALL = int(round(TRAINING_SEGMENTS_PER_CALL * VALIDATION_RATIO))
+
+Various filenames
+TDATA_FILENAME = 'acdc.tdata'
+NOISE_STRING = 'Noise'
+MODEL_FILENAME = 'acdc.model'
+MODEL_FILENAME = 'saved_model.pb'
+MODEL_ATTR_FILENAME = 'acdc.modelattr'
+MODEL_CMATRIX_FILENAME = 'acdc_model.png'
+
+MIN_DETECTION_LENGTH_RATIO = 0.2
+SMOOTHING_KERNEL_SIZE = 5
+VOLUME_AMP_MULTIPLE = 60
+(This variable determines by how much the data should be amplified so that enough samples cross the threshold of inclusion in the analysis and not too many background noise samples are erroneously included)
+
+
+
+
 
 
 
