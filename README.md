@@ -30,7 +30,7 @@ The full recording is split up into overlapping segments, each a certain length 
 
 To run ACDC, type <code>python acdc.py</code>. The following menu should appear
 
-
+<img src="https://github.com/mineraldragon/ACDC_2022/blob/main/img/Menu_screenshot.png" width=50% height=50%>
 
 
 Collaborators
