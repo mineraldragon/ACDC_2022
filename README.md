@@ -34,6 +34,9 @@ To run ACDC, type <code>python acdc.py</code>. The following menu should appear
 
 Now enter the number for the action you want to perform.
 
+
+## Important variables
+
 <code>variables.py</code> contains constants used in various modules. Some of them are highlighted here because changing their values according to the use's needs can help get better results.  
 
 <code>CONFIDENCE_THRESHOLD</code>
@@ -50,14 +53,6 @@ This is a target number of segments which determines whether the data needs to b
 
 <code>VOLUME_AMP_MULTIPLE</code>
 This variable determines by how much the data should be amplified. There is a threshold being applied so segments that do not cross the threshold are discarded. Change this value to get the optimal balance between false positives and false negatives. 
-
-
-
-
-
-
-
-
 
 
 
