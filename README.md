@@ -31,12 +31,12 @@ To run ACDC, type <code>python acdc.py</code>. The following menu should appear
 
 <img src="https://github.com/mineraldragon/ACDC_2022/blob/main/img/Menu_screenshot.png" width=50% height=50%>
 
-Now enter the number for the action you want to perform.
+Now enter the number for the action you want to perform. Note that you first need data to run these options. Option 1 (prepare training data) requires training data in the <code>training_data</code> folder. Option 2 (train models) assumes that you have already run option 1. Option 3 (process recordings) requires a trained model in the <code>models</code> folder and a recording in the <code>recordings<code> folder. 
 
 ## Operation
 
 ### Prepare training data
-1. Put training data in the <training_data</code> folder. There should be a sub-folder for each class and the name of the sub-folder has to match the classes listed in the variable <code>WINDOW_LENGTHS</code> in <code>variables.py</code>. The folders should contain wave files (.wav format, mono, 48kHz, 16 bits/sample) with the target calls, nicely edited to start and stop at the beginning and end of the call. The training samples need to be good quality, clearn, representative examples of what will be encountered in the recordings. There should also be a folder named <code>Noise</code> with representative samples of noises that are loud enough to cross threshold but do belong to any class. Set <code>TRAINING_SEGMENTS_PER_CALL</code> sufficiently high for data augmentation takes place and  
+1. Put training data in the <code>training_data</code> folder. There should be a sub-folder for each class and the name of the sub-folder has to match the classes listed in the variable <code>WINDOW_LENGTHS</code> in <code>variables.py</code>. The folders should contain wave files (.wav format, mono, 48kHz, 16 bits/sample) with the target calls, nicely edited to start and stop at the beginning and end of the call. The training samples need to be good quality, clearn, representative examples of what will be encountered in the recordings. There should also be a folder named <code>Noise</code> with representative samples of noises that are loud enough to cross threshold but do belong to any class. Set <code>TRAINING_SEGMENTS_PER_CALL</code> sufficiently high for data augmentation takes place and  
 2. To run data preparation, enter the corresponding number from in the menu
 
 ### Train models
