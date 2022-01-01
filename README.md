@@ -31,20 +31,23 @@ To run ACDC, type <code>python acdc.py</code>. The following menu should appear
 
 <img src="https://github.com/mineraldragon/ACDC_2022/blob/main/img/Menu_screenshot.png" width=50% height=50%>
 
-Now enter the number for the action you want to perform. Note that you first need data to run these options. Option 1 (prepare training data) requires training data in the <code>training_data</code> folder. Option 2 (train models) assumes that you have already run option 1. Option 3 (process recordings) requires a trained model in the <code>models</code> folder and a recording in the <code>recordings<code> folder. 
+Now enter the number for the action you want to perform. Note that you first need data to run these options. 
+Option 1 (prepare training data) requires having training data in the <code>training_data</code> folder. 
+Option 2 (train models) assumes that option 1 has already been done. 
+Option 3 (process recordings) requires a trained model in the <code>models</code> folder and a recording in the <code>recordings<code> folder. 
 
 ## Operation
 
 ### Prepare training data
-1. Put training data in the <code>training_data</code> folder. There should be a sub-folder for each class and the name of the sub-folder has to match the classes listed in the variable <code>WINDOW_LENGTHS</code> in <code>variables.py</code>. The folders should contain wave files (.wav format, mono, 48kHz, 16 bits/sample) with the target calls, nicely edited to start and stop at the beginning and end of the call. The training samples need to be good quality, clearn, representative examples of what will be encountered in the recordings. There should also be a folder named <code>Noise</code> with representative samples of noises that are loud enough to cross threshold but do belong to any class. Set <code>TRAINING_SEGMENTS_PER_CALL</code> sufficiently high for data augmentation takes place and  
-2. To run data preparation, enter the corresponding number from in the menu
+1. Put training data in the <code>training_data</code> folder. There should be a sub-folder for each class and the name of the sub-folder has to match the classes listed in the variable <code>WINDOW_LENGTHS</code> in <code>variables.py</code>. The folders should contain wave files (.wav format, mono, 48kHz, 16 bits/sample) with the target calls, nicely edited to start and stop at the beginning and end of the call. The training samples need to be good quality, clearn, representative examples of what will be encountered in the recordings. There should also be a folder named <code>Noise</code> with representative samples of noises that are loud enough to cross threshold but do not belong to any of the target classes. Set <code>TRAINING_SEGMENTS_PER_CALL</code> sufficiently high for data augmentation to take place.
+2. To run data preparation, enter the corresponding number from in the menu. Output is a file called <code>acdc.tdata</code> in the <code>models</code> folder.
 
 ### Train models
-1. Once <code>prepare training data</code> has been run, models can be trained. Make sure to set <code>TRAINING_EPOCHS</code> in <code>variables.py</code> sufficiently high (>10) for the model to optimize. 
-2. To run model training, enter the corresponding number from in the menu 
+1. Once <code>prepare training data</code> has been run, there should be a file called <code>acdc.tdata</code> in the <code>models</code> folder and models can be trained. Make sure to set <code>TRAINING_EPOCHS</code> in <code>variables.py</code> sufficiently high (>10) for the model to optimize. 
+2. To run model training, enter the corresponding number from in the menu. Output is a set of files and sub-folders in <code>models</code> representing the trained model.
 
 ### Process recordings
-1. Once a model has been trained, recordings (.wav format, mono, 48kHz, 16 bits/sample) can be processed. Put wave files in the <code>recordings</code> folder. 
+1. Once a model has been trained, the trained model should be in the <code>models</code> folder and recordings (.wav format, mono, 48kHz, 16 bits/sample) can be processed. Put wave files for analysis in the <code>recordings</code> folder. 
 2. To process recordings, enter the corresponding number from in the menu. Results are stored in a new sub-directory in <code>results</code>. Sub-directories are named according to the date and time of the run, like this: [YYYYMMDD]_[HHMMSS]_[recording filename]. Results are lists of call labels in .csv format and .txt format (tab-delimited Audacity readable) with a row for each call and 1st column start time (seconds), 2nd column end time (seconds) and 3rd column call type (‘Tr’, ‘Tw’, ‘Ph’ or ‘Chi’). The csv and txt files contain the same information. 
 3. An easy way to view the results is by loading the wave file into Audacity <url>https://www.audacityteam.org/</url> in Spectrogram view, and then do 'File', 'Import', 'Labels...' and select the .txt file with labels.
 4. The user may want to try out different values for <code>CONFIDENCE_THRESHOLD</code> and <code>VOLUME_AMP_MULTIPLE</code> (both in <code>variables.py</code> to get a better result. If that does not work, re-training with more samples may be necessary. Finally, to use a model architecture of your own, the current framework can still be useful. You need to edit <code>model.py</code> to enter the new model.
