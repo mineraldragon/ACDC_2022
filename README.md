@@ -34,29 +34,9 @@ To run ACDC, type <code>python acdc.py</code>. The following menu should appear
 
 Now enter the number for the action you want to perform.
 
+<code>variables.py</code> contains constants used in various modules which can be edited to change how the package operates. 
 
-## Repo contents
-<code>acdc.py</code>This is the main file which calls all other modules.
-<code>exporter.py</code>Creates the folder for the results.
-<code>filters.py</code>Pre-processing such as creating spectrograms and data augmentation.
-<code>model.py</code>Creates, trains, evaluates and saves the model
-<code>process.py</code>Manages processing of wave files for detection
-<code>recording.py</code>Manages loading of long wave files
-<code>results.py</code>Saves the results
-<code>scanner.py</code>Steps through a recording and labels the calls
-<code>training_data.py</code>Prepares data for training the model
-<code>variables.py</code>Constants used in various modules. Edit this to change how the package functions. 
-
-Constants affecting spectrograms and augmentation
-NPERSEG = 256
-NOVERLAP = int(NPERSEG * 0.25)
-WINDOW = 'hanning'
-SPECTROGRAM_RAW_LOW = 1
-SPECTROGRAM_RAW_HIGH = 4
-SPECTROGRAM_POWER_FACTOR = 4
-LOWCUT = 4500
-HIGHCUT = 9500
-SPECTROGRAM_HEIGHT = int(64)
+Constants affecting spectrograms and augmentation: NPERSEG, NOVERLAP, WINDOW, SPECTROGRAM_RAW_LOW, SPECTROGRAM_RAW_HIGH, SPECTROGRAM_POWER_FACTOR, LOWCUT, HIGHCUT, SPECTROGRAM_HEIGHT = int(64)
 SQUARIFY_SIZE = 64
 MORPH_CLEAN_KERNEL = np.ones((3,3))
 NOISE_NEG_SAMPLES_RATIO = 0.4
