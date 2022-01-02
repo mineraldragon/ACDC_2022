@@ -89,9 +89,9 @@ Training data for training a new model goes here. There should be a folder for e
 
 
 
-
-
 Collaborators
 Samvaran Sharma, Karthik Srinivasan, and Rogier Landman
+  
+Additional info in paper 'Unobtrusive vocalization recording in freely moving marmosets' (in prep)
 
 This project was developed in collaboration with MIT Brain and Cognitive Sciences (c) 2016-2022.
