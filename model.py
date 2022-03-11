@@ -14,6 +14,7 @@ from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 from tensorflow.keras.utils import to_categorical
 import seaborn as sns
+import tensorflow as tf
 
 from training_data import TrainingData
 from variables import *
@@ -89,7 +90,14 @@ class Model:
         X_train = self.prefilter(X_train)
         X_test = self.prefilter(X_test)
         X_validation = self.prefilter(X_validation)
+        #X_train = X_train[:, :, 0, :]
+        #X_test = X_test[:, :, 0, :]
+        #X_validation = X_validation[:, :, 0, :]
 
+        print(X_train.shape)
+        X_train = X_train.reshape(-1, Vars.SQUARIFY_SIZE, Vars.SQUARIFY_SIZE, 3)
+        X_test = X_test.reshape(-1, Vars.SQUARIFY_SIZE, Vars.SQUARIFY_SIZE, 3)
+        X_validation = X_validation.reshape(-1, Vars.SQUARIFY_SIZE, Vars.SQUARIFY_SIZE, 3)
 
         y_train = to_categorical(y_train)
         y_test = to_categorical(y_test)
@@ -98,42 +106,32 @@ class Model:
         num_classes = len(self.calls)
 
         print('commencing training...')
-        input_shape = (Vars.SQUARIFY_SIZE, Vars.SQUARIFY_SIZE, 1)
+        input_shape = (Vars.SQUARIFY_SIZE, Vars.SQUARIFY_SIZE, 3)
+
+
+
+
         model = Sequential()
 
-        model.add(Conv2D(64, kernel_size=(3,3),
-                             padding='same',
-                             input_shape=input_shape))
-        model.add(BatchNormalization(momentum=0.9))
-        model.add(LeakyReLU(alpha=0.1))
+        pretrained_model= tf.keras.applications.ResNet50(include_top=False,
+                           input_shape=input_shape,
+                           pooling='avg',
+                           classes=num_classes,
+                           weights='imagenet')
+        for layer in pretrained_model.layers:
+                layer.trainable=False
 
-        model.add(Conv2D(64, kernel_size=(3,3),
-                             padding='same',
-                             strides=2))
-        model.add(BatchNormalization(momentum=0.9))
-        model.add(LeakyReLU(alpha=0.1))
+        model.add(pretrained_model)
 
-        model.add(Conv2D(64, kernel_size=(3,3),
-                             padding='same',
-                             strides=2))
-        model.add(BatchNormalization(momentum=0.9))
-        model.add(LeakyReLU(alpha=0.1))
-
-        model.add(Conv2D(64, kernel_size=(3,3),
-                             padding='same',
-                             strides=2))
-        model.add(BatchNormalization(momentum=0.9))
-        model.add(LeakyReLU(alpha=0.1))
 
         model.add(Flatten())
-        model.add(Dropout(0.4))
-        model.add(Dense(2048))
-        model.add(LeakyReLU(alpha=0.2))
-        model.add(Dropout(0.3))
-        model.add(Dense(512))
-        model.add(LeakyReLU(alpha=0.2))
-        model.add(Dropout(0.2))
+        model.add(Dense(512, activation='relu'))
         model.add(Dense(num_classes, activation='softmax'))
+
+
+
+
+
 
         model.compile(loss=keras.losses.categorical_crossentropy,
                       optimizer=Adam(0.0002, 0.5),
@@ -170,6 +168,7 @@ class Model:
         Xp = []
         for i in range(len(X)):
             x = Filters.squarify(X[i])
+            x = Filters.gray2rgb(x)
             x = Filters.rescale(x)
             x = np.expand_dims(x, 2)
             Xp.append(x)

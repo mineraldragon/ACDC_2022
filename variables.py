@@ -23,7 +23,7 @@ class Vars:
     MINIMUM_VALUE = 0.01
     MINIMUM_AVG_VALUE = 0.001
     MAXIMUM_AVG_VALUE = 0.9
-    TRAINING_DIR = 'training_data'
+    TRAINING_DIR = '/Users/rogierlandman/from_Samsung/Python/ACDC/R4good_nontsik/training_data'
     RECORDINGS_DIR = 'recordings'
     RESULTS_DIR = 'results'
     MODELS_DIR = 'models'

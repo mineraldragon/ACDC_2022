@@ -59,6 +59,9 @@ class Filters:
     def squarify(x):
         return cv2.resize(x, (Vars.SQUARIFY_SIZE, Vars.SQUARIFY_SIZE))
 
+    def gray2rgb(x):
+        return cv2.cvtColor(x, cv2.COLOR_GRAY2RGB)
+
     # Rescales spectrogram image data to be from 0->1 to -1->1 to better fit the neural network
     def rescale(x):
         return (x*2)-1
