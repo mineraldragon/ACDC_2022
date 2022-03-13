@@ -11,7 +11,7 @@ class Vars:
     LOWCUT = 4500
     HIGHCUT = 9500
     SPECTROGRAM_HEIGHT = int(64)
-    SQUARIFY_SIZE = 64
+    SQUARIFY_SIZE = 32
     MORPH_CLEAN_KERNEL = np.ones((3,3))
     ROTATIONS = (-2, 2)
     SHEARS_HORIZ = (-2, 2)
